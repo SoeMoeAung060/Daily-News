@@ -7,6 +7,11 @@ import com.soe.dailynews.data.local.NewsTypeConverter
 import com.soe.dailynews.data.local.dao.ArticleDao
 import com.soe.dailynews.data.local.database.NewsDatabase
 import com.soe.dailynews.data.remote.api.NewsApi
+import com.soe.dailynews.data.repository.ArticleRepositoryImpl
+import com.soe.dailynews.domain.repository.ArticleRepository
+import com.soe.dailynews.domain.usecase.ArticlesUseCase
+import com.soe.dailynews.domain.usecase.GetBreakingNews
+import com.soe.dailynews.domain.usecase.GetEverythingNews
 import com.soe.dailynews.util.BASE_URL
 import com.soe.dailynews.util.NEWS_DB_NAME
 import dagger.Module
@@ -79,5 +84,24 @@ object NewsModule {
         newsDatabase: NewsDatabase
     ): ArticleDao = newsDatabase.articleDao()
 
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(
+        newsApi : NewsApi,
+        newsDatabase: NewsDatabase
+    ) : ArticleRepository = ArticleRepositoryImpl(newsApi, newsDatabase)
+
+
+    @Provides
+    @Singleton
+    fun provideNewsUseCase(
+        articleRepository: ArticleRepository
+    ) : ArticlesUseCase {
+        return ArticlesUseCase(
+            getEverythingNews = GetEverythingNews(articleRepository),
+            getBreakingNews = GetBreakingNews(articleRepository)
+        )
+    }
 
 }

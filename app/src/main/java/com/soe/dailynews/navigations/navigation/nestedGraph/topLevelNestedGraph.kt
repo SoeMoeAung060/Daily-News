@@ -1,35 +1,37 @@
 package com.soe.dailynews.navigations.navigation.nestedGraph
 
-import androidx.hilt.navigation.compose.hiltViewModel
+import android.util.Log
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.navigation.navArgument
+import com.soe.dailynews.domain.model.Article
 import com.soe.dailynews.navigations.NewsNavController
 import com.soe.dailynews.navigations.navigation.BottomBarScreenRoute
 import com.soe.dailynews.navigations.navigation.ScreenRoute
 import com.soe.dailynews.presentation.screens.bookmark.BookMarkScreen
 import com.soe.dailynews.presentation.screens.detail_screen.DetailScreen
 import com.soe.dailynews.presentation.screens.home.HomeScreen
-import com.soe.dailynews.presentation.screens.home.HomesScreenViewModel
 import com.soe.dailynews.presentation.screens.profile.ProfileScreen
+import com.soe.dailynews.util.dummyArticle
 
 fun NavGraphBuilder.topLevelNestedGraph(
     newsNavController: NewsNavController
 ){
-
-
 
     navigation(
         startDestination = BottomBarScreenRoute.Home.route,
         route = ScreenRoute.TopLevelScreenRoute.route
     ){
 
-        composable(BottomBarScreenRoute.Home.route) {
+        composable(
+            BottomBarScreenRoute.Home.route
+        ) {
             HomeScreen(
                 navigateToDetail = { article ->
-                    newsNavController.navigate(ScreenRoute.DetailScreen.route)
+                    newsNavController.navigateToDetails(article = article)
                 },
             )
         }
@@ -44,20 +46,24 @@ fun NavGraphBuilder.topLevelNestedGraph(
             })
         }
 
-        composable(ScreenRoute.DetailScreen.route) {
-            DetailScreen()
-        }
+        composable(
+            ScreenRoute.DetailScreen.route
+    ) {
+            val result = newsNavController.navController.previousBackStackEntry?.savedStateHandle?.get<Article>("article")
+            Log.d("TAG", "result: $result")
 
+            result?.let { article ->
+                DetailScreen(
+                    article = article,
+                    popUp = {
+                        newsNavController.popUp()
+                        newsNavController.navController.currentBackStackEntry?.savedStateHandle?.remove<Article>("article")
 
-
-//        composable(
-//        route = "${ScreenRoute.DetailScreen.route}?url={url}",
-//        arguments = listOf(navArgument("url") { type = NavType.StringType })
-//    ) {
-//        DetailScreen(
-//            url = it.arguments?.getString("url") ?: ""
-//        )
-//    }
+                    }
+                )
+            }
+    }
 
     }
 }
+

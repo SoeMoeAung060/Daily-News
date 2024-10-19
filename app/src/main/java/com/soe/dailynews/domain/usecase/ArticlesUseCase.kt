@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 data class ArticlesUseCase(
     val getBreakingNews : GetBreakingNews,
-    val getNewsEverything : GetNewsEverything,
+    val getEverythingNews : GetEverythingNews,
 )
 
 
@@ -21,11 +21,11 @@ class GetBreakingNews(
 
 }
 
-class GetNewsEverything(
+class GetEverythingNews(
     private val articleRepository: ArticleRepository
 ){
-    suspend operator fun invoke(source : List<String>) : Flow<PagingData<Article>>{
-        return articleRepository.getNewsEverything(source)
+    suspend operator fun invoke(sources : List<String>, country: String) : Flow<PagingData<Article>>{
+        return articleRepository.getEverythingNews(sources, country)
     }
 
 }

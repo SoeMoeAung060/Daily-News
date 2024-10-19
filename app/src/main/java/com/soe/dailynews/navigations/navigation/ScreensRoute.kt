@@ -10,11 +10,16 @@ sealed class ScreenRoute(val route : String) {
     data object SignUpScreen : ScreenRoute("signup_screen")
     data object ForgotPasswordScreen : ScreenRoute("forgot_password_screen")
 
-    data object AuthRoute : ScreenRoute("auth")
-    data object TopLevelScreenRoute : ScreenRoute("top_level")
 
-    data object DetailScreen : ScreenRoute("detail/{itemId}") {
-        fun createRoute(itemId: String) = "detail/$itemId"
+    data object AuthRoute : ScreenRoute("auth")
+    data object AuthScreenRout : ScreenRoute ("auth_screen_route")
+    data object TopLevelRoute : ScreenRoute("top_level_route")
+    data object TopLevelScreenRoute : ScreenRoute("top_level_screen_route")
+
+    data object DetailScreen : ScreenRoute("detail/{$NEWS_ID}") {
+        fun createRoute(itemId: String)  : String {
+            return this.route.replace(oldValue = "{$NEWS_ID}", newValue = itemId)
+        }
     }
 }
 

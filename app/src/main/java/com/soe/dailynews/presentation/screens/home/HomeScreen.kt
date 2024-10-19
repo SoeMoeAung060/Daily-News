@@ -3,14 +3,21 @@ package com.soe.dailynews.presentation.screens.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,6 +25,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.soe.dailynews.R
 import com.soe.dailynews.domain.model.Article
+import com.soe.dailynews.presentation.commom.BottomNavigationBar
 import com.soe.dailynews.presentation.commom.ScreenTitleTextSmall
 import com.soe.dailynews.presentation.commom.TopBar
 import com.soe.dailynews.presentation.screens.home.component.BreakingNewsHomeList
@@ -35,27 +43,32 @@ fun HomeScreen(
     homesScreenViewModel: HomesScreenViewModel = hiltViewModel()
 ) {
 
-    val everythingNews = homesScreenViewModel.getEverythingNews.collectAsLazyPagingItems()
     val breakingNews = homesScreenViewModel.getBreakingNews.collectAsLazyPagingItems()
 
+
+    // Remember the scroll state to preserve it
+    val listState = rememberLazyListState()
 
     Scaffold(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(),
-        topBar = { TopBar() }
+        topBar = { TopBar() },
     ) { paddingValues ->
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-                .padding(top = paddingValues.calculateTopPadding())
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding())
                 .background(MaterialTheme.colorScheme.background)
         ) {
             LazyColumn(
                 modifier = modifier
                     .fillMaxWidth(),
+//                state = listState
             ) {
 
                 item {
@@ -71,7 +84,8 @@ fun HomeScreen(
                     BreakingNewsHomeList(
                         modifier = Modifier.fillMaxWidth(),
                         articles = breakingNews,
-                        onClick = { article -> navigateToDetail(article) }
+                        onClick = { article ->
+                            navigateToDetail(article) }
                     ).also {
                         println("Breaking News - Articles count: ${breakingNews.itemCount}")
 
@@ -93,10 +107,10 @@ fun HomeScreen(
 
                 worldNewsHomeList(
                     modifier = Modifier.fillMaxWidth(),
-                    articles = everythingNews,
+                    articles = breakingNews,
                     onClick = { article -> navigateToDetail(article) }
                 ).also {
-                    println("Everything News - Articles count: ${everythingNews.itemCount}")
+                    println("Everything News - Articles count: ${breakingNews.itemCount}")
                 }
             }
         }

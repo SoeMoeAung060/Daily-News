@@ -34,3 +34,4 @@ fun RootNavGraph(
         topLevelNestedGraph(newsNavController)
     }
 }
+

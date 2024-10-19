@@ -14,12 +14,13 @@ coreSplashscreen = "1.0.1"
 composeNav = "2.8.1"
 hilt = "2.52"
 hilt-navigation = "1.2.0"
+media3CommonKtx = "1.4.1"
 retrofit = "2.11.0"
 coil = "2.7.0"
 datastore = "1.1.1"
 foundation = "1.7.2"
 paging = "3.3.2"
-room = "2.6.1"
+room = "2.5.0"
 newsapi = "1.0.2"
 okhttp = "4.12.0"
 
@@ -51,6 +52,7 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-media3-common-ktx = { module = "androidx.media3:media3-common-ktx", version.ref = "media3CommonKtx" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
@@ -114,7 +116,6 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt-android" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization" }
@@ -123,4 +124,5 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin-kapt" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-parcelize" }
 
 google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+
 

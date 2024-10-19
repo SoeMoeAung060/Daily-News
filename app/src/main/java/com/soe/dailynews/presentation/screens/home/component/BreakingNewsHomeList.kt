@@ -29,28 +29,28 @@ fun BreakingNewsHomeList(
     onClick: (Article) -> Unit
 ) {
 
-    when(val refreshState = articles.loadState.refresh){
-        is LoadState.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-        is LoadState.Error -> {
-            // Handle and display error message
-            val errorMessage = refreshState.error.message ?: "Unknown error"
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Something went wrong: $errorMessage")
-            }
-            Log.e("HomeScreen", "Error loading news: $errorMessage")
-        }
-
-        else -> {
+//    when(val refreshState = articles.loadState.refresh){
+//        is LoadState.Loading -> {
+//            Box(
+//                modifier = Modifier.fillMaxWidth(),
+//                contentAlignment = Alignment.Center
+//            ) {
+////                CircularProgressIndicator()
+//            }
+//        }
+//        is LoadState.Error -> {
+//            // Handle and display error message
+//            val errorMessage = refreshState.error.message ?: "Unknown error"
+//            Box(
+//                modifier = Modifier.fillMaxSize(),
+//                contentAlignment = Alignment.Center
+//            ) {
+//                Text(text = "Something went wrong: $errorMessage")
+//            }
+//            Log.e("HomeScreen", "Error loading news: $errorMessage")
+//        }
+//
+//        else -> {
             if(articles.itemCount > 0){
                 LazyRow(
                     modifier = modifier.fillMaxWidth(),
@@ -80,9 +80,9 @@ fun BreakingNewsHomeList(
                 }
 
             }
-        }
+//        }
 
-    }
+//    }
 
 
 }

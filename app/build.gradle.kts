@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
 
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlin.kapt)
+//    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.kotlin.parcelize)
 
     alias(libs.plugins.hilt.android)
@@ -133,8 +133,7 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
-    implementation(libs.coil3.coil.compose)
-    implementation(libs.coil.network.okhttp)
+//    implementation(libs.androidx.media3.common.ktx)
 
 }
 

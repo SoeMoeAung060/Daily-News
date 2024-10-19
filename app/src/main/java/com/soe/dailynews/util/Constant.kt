@@ -12,6 +12,8 @@ const val API_KEY = "9c6950b562ca4e17b1fc32902fc5807d" //softwareshack
 const val BASE_URL = "https://newsapi.org/v2/"
 const val NEWS_DB_NAME = "news_db_name"
 
+const val PER_PAGE_SIZE = 20
+
 
 val SOURCES = listOf(
     "the-verge",

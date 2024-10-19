@@ -8,5 +8,5 @@ interface ArticleRepository {
 
     suspend fun getBreakingNews(country :String) : Flow<PagingData<Article>>
 
-    suspend fun getNewsEverything(source : List<String>) : Flow<PagingData<Article>>
+    suspend fun getEverythingNews(sources : List<String>, country: String) : Flow<PagingData<Article>>
 }

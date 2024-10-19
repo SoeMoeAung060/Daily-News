@@ -12,15 +12,13 @@ import com.soe.dailynews.domain.model.Article
 interface ArticleDao {
 
 
-    @Query("SELECT * FROM article_entity")
+    @Query("SELECT * FROM Article")
      fun getAllArticle(): PagingSource<Int, Article>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      fun insertAll(articles: List<Article>)
 
-    @Query("DELETE FROM article_entity")
+    @Query("DELETE FROM Article")
      fun clearAll()
-
-
 
 }

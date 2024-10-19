@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "aa0a6c740fcdc796e10dc22be01535b3",
+    "identityHash": "e7e36436d3adc6ace9047cb2c3ca75b6",
     "entities": [
       {
-        "tableName": "article_entity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `source` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `urlToImage` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT NOT NULL, PRIMARY KEY(`url`))",
+        "tableName": "Article",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `source` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT, `urlToImage` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT NOT NULL, PRIMARY KEY(`url`))",
         "fields": [
           {
             "fieldPath": "url",
@@ -36,7 +36,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "urlToImage",
@@ -67,7 +67,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "ArticleRemoteKeyEntity",
+        "tableName": "BreakingNewsRemoteKeyEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `next_page` INTEGER, `prev_page` INTEGER, PRIMARY KEY(`url`))",
         "fields": [
           {
@@ -102,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aa0a6c740fcdc796e10dc22be01535b3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e7e36436d3adc6ace9047cb2c3ca75b6')"
     ]
   }
 }

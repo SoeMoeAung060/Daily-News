@@ -1,7 +1,10 @@
 package com.soe.dailynews.navigations
 
 import androidx.compose.runtime.Stable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.soe.dailynews.domain.model.Article
+import com.soe.dailynews.navigations.navigation.ScreenRoute
 
 
 @Stable
@@ -37,4 +40,15 @@ class NewsNavController(
 
     }
 
+
+     fun navigateToDetails(article: Article){
+        navController.currentBackStackEntry?.savedStateHandle?.set(
+            key = "article",
+            value = article)
+        navController.navigate(
+            route = ScreenRoute.DetailScreen.route
+        )
+    }
+
 }
+

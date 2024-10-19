@@ -52,7 +52,7 @@ fun WorldNewsCard(
             .fillMaxWidth()
             .padding(10.dp)
             .clip(RoundedCornerShape(cornerMedium))
-            .clickable { onClick.invoke() },
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(2.dp),
 
         ) {
