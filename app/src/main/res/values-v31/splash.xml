@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <style name="App.Starting.Theme" parent="Theme.SplashScreen">-->
+<!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/daily_news_logo</item>-->
+<!--        <item name="android:windowSplashScreenBackground">#FFFFFF</item>-->
+<!--        <item name="postSplashScreenTheme">Theme.DailyNews</item>-->
+<!--    </style>-->
+</resources>

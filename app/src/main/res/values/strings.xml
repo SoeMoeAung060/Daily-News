@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Daily News</string>
 
+
+    <string name="breaking_news">Breaking News</string>
+    <string name="no_news_available">No news available</string>
+    <string name="world_wide">World Wide</string>
+    <string name="editor">Editor</string>
+
+
 </resources>
