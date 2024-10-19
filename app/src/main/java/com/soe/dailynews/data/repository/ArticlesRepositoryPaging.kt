@@ -21,7 +21,7 @@ class ArticlesRepositoryPaging @Inject constructor(
      fun getBreakingNews(country: String): Flow<PagingData<Article>> {
         val pagingSourceFactory = { newsDatabase.articleDao().getAllArticle() }
         return Pager(
-            config = PagingConfig(pageSize = 5),
+            config = PagingConfig(pageSize = 20),
             pagingSourceFactory = pagingSourceFactory,
             remoteMediator = ArticleRemoteMediator(
                 query = country,
@@ -33,12 +33,13 @@ class ArticlesRepositoryPaging @Inject constructor(
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getEverythingNews (source: List<String>): Flow<PagingData<Article>> {
+    fun getEverythingNews (source: List<String>, country: String): Flow<PagingData<Article>> {
         val pagingSourceFactory = { newsDatabase.articleDao().getAllArticle() }
         return Pager(
-            config = PagingConfig(pageSize = 5),
+            config = PagingConfig(pageSize = 20),
             pagingSourceFactory = pagingSourceFactory,
             remoteMediator = ArticleRemoteMediator(
+                query = country,
                 sources = source.joinToString(separator = ","),
                 newsApi = newApi,
                 newsDatabase = newsDatabase

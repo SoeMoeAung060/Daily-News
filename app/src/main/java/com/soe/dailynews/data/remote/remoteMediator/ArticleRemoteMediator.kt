@@ -84,48 +84,48 @@ class ArticleRemoteMediator(
                 articleRemoteKeysDao.addAllRemoteKeys(remoteKeys = breakingKeys)
                 articleDao.insertAll(articles)
             }
-
-            // Everything News API Call (if applicable)
-            val everythingNewsResponse = if (sources.isNullOrEmpty()) {
-                newsApi.getNewsEverything(
-                    source = sources!!,
-                    page = currentPage,
-                    pageSize = state.config.pageSize
-                )
-            } else null
-
-            // Check if the Everything News API response is empty
-            val endOfPaginationReachedEverythingNews = everythingNewsResponse!!.articles.isEmpty()
-
-            val prePageEverything = if (currentPage == 1) null else currentPage - 1
-            val nextPageEverything = if (endOfPaginationReachedEverythingNews) null else currentPage + 1
-
-            // Database transaction for Everything News
-            newsDatabase.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    articleDao.clearAll() // Depending on your design, you may want to clear here as well
-                    articleRemoteKeysDao.deleteAllRemoteKeys()
-                }
-
-                val articles = everythingNewsResponse.toArticle()
-
-                // Add Remote Keys for Everything News
-                val everythingKeys = everythingNewsResponse.articles.map { article ->
-                    ArticleRemoteKeyEntity(
-                        url = article.url,
-                        nextPage = nextPageEverything,
-                        prevPage = prePageEverything
-                    )
-                }
-                Log.d("ArticleRemoteMediator", "Everything News Remote Keys: $everythingKeys")
-                everythingKeys?.let { articleRemoteKeysDao.addAllRemoteKeys(remoteKeys = it) }
-
-                articleDao.insertAll(articles)
-
-            }
+//
+//            // Everything News API Call (if applicable)
+//            val everythingNewsResponse = if (sources.isNullOrEmpty()) {
+//                newsApi.getNewsEverything(
+//                    source = sources!!,
+//                    page = currentPage,
+//                    pageSize = state.config.pageSize
+//                )
+//            } else null
+//
+//            // Check if the Everything News API response is empty
+//            val endOfPaginationReachedEverythingNews = everythingNewsResponse!!.articles.isEmpty()
+//
+//            val prePageEverything = if (currentPage == 1) null else currentPage - 1
+//            val nextPageEverything = if (endOfPaginationReachedEverythingNews) null else currentPage + 1
+//
+//            // Database transaction for Everything News
+//            newsDatabase.withTransaction {
+//                if (loadType == LoadType.REFRESH) {
+//                    articleDao.clearAll() // Depending on your design, you may want to clear here as well
+//                    articleRemoteKeysDao.deleteAllRemoteKeys()
+//                }
+//
+//                val articles = everythingNewsResponse.toArticle()
+//
+//                // Add Remote Keys for Everything News
+//                val everythingKeys = everythingNewsResponse.articles.map { article ->
+//                    ArticleRemoteKeyEntity(
+//                        url = article.url,
+//                        nextPage = nextPageEverything,
+//                        prevPage = prePageEverything
+//                    )
+//                }
+//                Log.d("ArticleRemoteMediator", "Everything News Remote Keys: $everythingKeys")
+//                everythingKeys?.let { articleRemoteKeysDao.addAllRemoteKeys(remoteKeys = it) }
+//
+//                articleDao.insertAll(articles)
+//
+//            }
 
             // Return the result of the operation
-            MediatorResult.Success(endOfPaginationReached = endOfPaginationReachedBreakingNews && endOfPaginationReachedEverythingNews)
+            MediatorResult.Success(endOfPaginationReached = endOfPaginationReachedBreakingNews)
 
         } catch (e: SocketTimeoutException) {
             MediatorResult.Error(Throwable("Network Timeout. Please Try Again."))
@@ -168,4 +168,5 @@ class ArticleRemoteMediator(
                 articleRemoteKeysDao.getRemoteKeys(url = articleEntity.url)
             }
     }
+
 }

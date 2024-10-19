@@ -10,7 +10,7 @@ import com.soe.dailynews.data.local.entity.ArticleRemoteKeyEntity
 import com.soe.dailynews.domain.model.Article
 
 
-@Database(entities = [Article::class, ArticleRemoteKeyEntity::class], version = 1, exportSchema = true)
+@Database(entities = [Article::class, ArticleRemoteKeyEntity::class], version = 2, exportSchema = true)
 @TypeConverters(NewsTypeConverter::class)
 abstract class NewsDatabase : RoomDatabase(){
 

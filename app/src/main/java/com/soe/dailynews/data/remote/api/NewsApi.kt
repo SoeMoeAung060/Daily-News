@@ -12,6 +12,7 @@ interface NewsApi {
     @GET("everything")
     suspend fun getNewsEverything(
 
+        @Query("country") country : String,
         @Query("sources") source : String,
         @Query("page") page : Int,
         @Query("pageSize") pageSize :Int,
