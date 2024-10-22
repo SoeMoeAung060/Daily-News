@@ -3,6 +3,7 @@ package com.soe.dailynews.navigations
 import androidx.compose.runtime.Stable
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.soe.dailynews.data.local.entity.BookmarkEntity
 import com.soe.dailynews.domain.model.Article
 import com.soe.dailynews.navigations.navigation.ScreenRoute
 
@@ -49,6 +50,19 @@ class NewsNavController(
             route = ScreenRoute.DetailScreen.route
         )
     }
+
+
+    fun navigateToBookmarkDetails(article: BookmarkEntity){
+        navController.currentBackStackEntry?.savedStateHandle?.set(
+            key = "article",
+            value = article)
+        navController.navigate(
+            route = ScreenRoute.DetailScreen.route
+        )
+    }
+
+
+
 
 }
 

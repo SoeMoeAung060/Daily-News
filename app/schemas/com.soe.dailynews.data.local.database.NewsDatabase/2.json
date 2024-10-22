@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "bb8869cbe265417cda6426c1e74f1b76",
+    "identityHash": "813c7601dda06daa02a905bc26bce4a7",
     "entities": [
       {
-        "tableName": "article_entity",
+        "tableName": "Article",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `source` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT, `urlToImage` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT NOT NULL, PRIMARY KEY(`url`))",
         "fields": [
           {
@@ -67,8 +67,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "ArticleRemoteKeyEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `next_page` INTEGER, `prev_page` INTEGER, PRIMARY KEY(`url`))",
+        "tableName": "RemoteKeyEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `prev_page` INTEGER, `next_page` INTEGER, PRIMARY KEY(`url`))",
         "fields": [
           {
             "fieldPath": "url",
@@ -77,16 +77,78 @@
             "notNull": true
           },
           {
-            "fieldPath": "nextPage",
-            "columnName": "next_page",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
             "fieldPath": "prevPage",
             "columnName": "prev_page",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "nextPage",
+            "columnName": "next_page",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "url"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "BookmarkEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `source` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT, `urlToImage` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT NOT NULL, PRIMARY KEY(`url`))",
+        "fields": [
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "urlToImage",
+            "columnName": "urlToImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "publishedAt",
+            "columnName": "publishedAt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -102,7 +164,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bb8869cbe265417cda6426c1e74f1b76')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '813c7601dda06daa02a905bc26bce4a7')"
     ]
   }
 }

@@ -15,25 +15,28 @@ interface NewsApi {
     @GET("top-headlines")
     suspend fun getBreakingNews(
 
-        @Query("country") country: String,
-        @Query("page") page: Int,
-        @Query("pageSize") pageSize : Int,
-        @Query("apiKey") apiKey: String = API_KEY
+        @Query("page") page : Int,
+        @Query("sources") sources: String,
+        @Query("apiKey") apiKey : String = API_KEY
 
         ) : NewsResponseDTO
 
 
 
     @GET("everything")
-    suspend fun getNewsEverything(
-
-        @Query("country") country : String,
-        @Query("sources") sources : String,
+    suspend fun getNews(
         @Query("page") page : Int,
-        @Query("pageSize") pageSize :Int,
-        @Query("apiKey") apiKey : String = API_KEY,
+        @Query("sources") sources: String,
+        @Query("apiKey") apiKey : String = API_KEY
+    ) : NewsResponseDTO
 
-        ) : NewsResponseDTO
 
+    @GET("everything")
+    suspend fun searchNews(
+        @Query("q") search : String,
+        @Query("sources") sources: String,
+        @Query("page") page : Int,
+        @Query("apiKey") apiKey : String = API_KEY
+    ) : NewsResponseDTO
 
 }

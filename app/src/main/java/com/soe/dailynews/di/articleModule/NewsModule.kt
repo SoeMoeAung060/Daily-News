@@ -10,8 +10,14 @@ import com.soe.dailynews.data.remote.api.NewsApi
 import com.soe.dailynews.data.repository.ArticleRepositoryImpl
 import com.soe.dailynews.domain.repository.ArticleRepository
 import com.soe.dailynews.domain.usecase.ArticlesUseCase
-import com.soe.dailynews.domain.usecase.GetBreakingNews
-import com.soe.dailynews.domain.usecase.GetEverythingNews
+import com.soe.dailynews.domain.usecase.DeleteBookmarkArticle
+import com.soe.dailynews.domain.usecase.GetBookmarkArticles
+import com.soe.dailynews.domain.usecase.GetBookmarkByUrl
+import com.soe.dailynews.domain.usecase.GetCategoriesNews
+import com.soe.dailynews.domain.usecase.GetNews
+import com.soe.dailynews.domain.usecase.GetTopHeadline
+import com.soe.dailynews.domain.usecase.SearchNews
+import com.soe.dailynews.domain.usecase.UpsertBookmarkArticle
 import com.soe.dailynews.util.BASE_URL
 import com.soe.dailynews.util.NEWS_DB_NAME
 import dagger.Module
@@ -85,22 +91,39 @@ object NewsModule {
     ): ArticleDao = newsDatabase.articleDao()
 
 
+
+
     @Provides
     @Singleton
     fun provideNewsRepository(
         newsApi : NewsApi,
-        newsDatabase: NewsDatabase
-    ) : ArticleRepository = ArticleRepositoryImpl(newsApi, newsDatabase)
+        database: NewsDatabase
+    ) : ArticleRepository = ArticleRepositoryImpl(newsApi, database)
 
 
     @Provides
     @Singleton
     fun provideNewsUseCase(
-        articleRepository: ArticleRepository
+        articleRepository: ArticleRepository,
+        articleDao: ArticleDao,
     ) : ArticlesUseCase {
         return ArticlesUseCase(
-            getEverythingNews = GetEverythingNews(articleRepository),
-            getBreakingNews = GetBreakingNews(articleRepository)
+            getNews = GetNews(articleRepository),
+            getTopHeadline = GetTopHeadline(articleRepository),
+            searchNews = SearchNews(articleRepository),
+            getCategoriesNews = GetCategoriesNews(articleRepository),
+
+//            deleteArticle = DeleteArticle(articleDao),
+//            upsertArticles = UpsertArticle(articleDao),
+//            getArticle = GetArticle(articleDao),
+//            getArticles = GetArticles(articleDao),
+
+
+            getAllBookmarkArticles = GetBookmarkArticles(articleDao),
+            getBookmarkByUrl = GetBookmarkByUrl(articleDao),
+            upsertBookmarkArticle = UpsertBookmarkArticle(articleDao),
+            deleteBookmarkArticle = DeleteBookmarkArticle(articleDao)
+
         )
     }
 

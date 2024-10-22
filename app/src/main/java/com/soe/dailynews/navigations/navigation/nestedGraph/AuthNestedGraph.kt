@@ -10,12 +10,13 @@ import com.soe.dailynews.presentation.screens.signin_signup.signIn.SignInScreen
 import com.soe.dailynews.presentation.screens.signin_signup.signUp.SignUpScreen
 import com.soe.dailynews.presentation.screens.splashScreen.SplashScreen
 
+
 fun NavGraphBuilder.authNestedGraph(
     newsNavController: NewsNavController
 ){
     navigation(
-        startDestination = ScreenRoute.SplashScreen.route,
-        route = ScreenRoute.AuthRoute.route){
+        route = ScreenRoute.AuthRoute.route,
+        startDestination = ScreenRoute.SplashScreen.route){
 
         composable(ScreenRoute.SplashScreen.route) {
             SplashScreen(openAndPopUp = { route, popUp ->

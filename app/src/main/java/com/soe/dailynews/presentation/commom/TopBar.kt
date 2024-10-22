@@ -33,25 +33,25 @@ fun TopBar(modifier: Modifier = Modifier) {
                 tint = Color.Unspecified
             )
         },
-        actions = {
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.search),
-                    contentDescription = "notification"
-                )
-            }
-
-            IconButton(
-                onClick = {}
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.notification),
-                    contentDescription = "notification"
-                )
-            }
-        },
+//        actions = {
+//            IconButton(
+//                onClick = {}
+//            ) {
+//                Icon(
+//                    painter = painterResource(R.drawable.search),
+//                    contentDescription = "notification"
+//                )
+//            }
+//
+//            IconButton(
+//                onClick = {}
+//            ) {
+//                Icon(
+//                    painter = painterResource(R.drawable.notification),
+//                    contentDescription = "notification"
+//                )
+//            }
+//        },
 
         )
 

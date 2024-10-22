@@ -6,7 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface ArticleRepository {
 
-    suspend fun getBreakingNews(country :String) : Flow<PagingData<Article>>
 
-    suspend fun getEverythingNews(sources : List<String>, country: String) : Flow<PagingData<Article>>
+    suspend fun getNews(sources : List<String>) : Flow<PagingData<Article>>
+    suspend fun getTopHeadline(sources : List<String>) : Flow<PagingData<Article>>
+    suspend fun getSearchNews(search : String, sources : List<String>) : Flow<PagingData<Article>>
+    suspend fun getCategoriesNews(category : String) : Flow<PagingData<Article>>
+
 }

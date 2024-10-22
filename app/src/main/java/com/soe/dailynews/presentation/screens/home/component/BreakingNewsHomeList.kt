@@ -20,6 +20,7 @@ import com.soe.dailynews.R
 import com.soe.dailynews.domain.model.Article
 import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingLarge
 import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingMedium
+import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingSmall
 import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingZero
 
 @Composable
@@ -54,14 +55,14 @@ fun BreakingNewsHomeList(
             if(articles.itemCount > 0){
                 LazyRow(
                     modifier = modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(paddingMedium)
+                    horizontalArrangement = Arrangement.spacedBy(paddingSmall)
                 ){
                     items(count = minOf(articles.itemCount, 5)){index ->
                         val article = articles[index]
                         BreakingNewsCard(
                             modifier = Modifier.padding(
-                                start = if (index == 0) paddingLarge else paddingZero,
-                                end = if (index == 4) paddingLarge else paddingZero
+                                start = if (index == 0) paddingMedium else paddingZero,
+                                end = if (index == 4) paddingMedium else paddingZero
                             ),
                             articles = article!!,
                             onClick = { onClick(article) }

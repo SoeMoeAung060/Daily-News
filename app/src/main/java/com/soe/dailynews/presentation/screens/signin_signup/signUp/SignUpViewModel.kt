@@ -1,6 +1,5 @@
 package com.soe.dailynews.presentation.screens.signin_signup.signUp
 
-import com.soe.dailynews.navigations.navigation.BottomBarScreenRoute
 import com.soe.dailynews.navigations.navigation.ScreenRoute
 import com.soe.dailynews.di.authenticationModule.AccountService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,7 +54,7 @@ class SignUpViewModel @Inject constructor(
             }
 
             accountService.signUp(_email.value, _password.value)
-            openAndPopUp(BottomBarScreenRoute.Home.route, ScreenRoute.SignUpScreen.route)
+            openAndPopUp(ScreenRoute.TopLevelScreenRoute.route, ScreenRoute.SignUpScreen.route)
         }
     }
 

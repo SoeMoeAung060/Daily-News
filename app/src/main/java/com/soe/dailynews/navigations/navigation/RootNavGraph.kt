@@ -6,19 +6,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.soe.dailynews.navigations.NewsNavController
+import com.soe.dailynews.navigations.navigation.nestedGraph.TopLevelScreenGraph
 import com.soe.dailynews.navigations.navigation.nestedGraph.authNestedGraph
-import com.soe.dailynews.navigations.navigation.nestedGraph.topLevelNestedGraph
 
 
 @Composable
 fun RootNavGraph(
     newsNavController: NewsNavController,
 ) {
-    val navController = newsNavController.navController
-    val navBackStackEntry = navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry.value?.destination?.route
 
     NavHost(
         modifier = Modifier
@@ -31,7 +29,10 @@ fun RootNavGraph(
 
         authNestedGraph(newsNavController)
 
-        topLevelNestedGraph(newsNavController)
+        composable(route = ScreenRoute.TopLevelScreenRoute.route) {
+            TopLevelScreenGraph()
+
+        }
     }
 }
 

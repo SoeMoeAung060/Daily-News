@@ -34,6 +34,10 @@ import com.soe.dailynews.presentation.commom.SquareAsyncCard
 import com.soe.dailynews.presentation.ui.theme.DailyNewsTheme
 import com.soe.dailynews.presentation.ui.theme.Dimensions.cornerMedium
 import com.soe.dailynews.presentation.ui.theme.Dimensions.heightSemiNormal
+import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingExtraSmall
+import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingMedium
+import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingSemiNormal
+import com.soe.dailynews.presentation.ui.theme.Dimensions.paddingSmall
 import com.soe.dailynews.util.formatDate
 
 @Composable
@@ -50,7 +54,7 @@ fun WorldNewsCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(horizontal = paddingSemiNormal)
             .clip(RoundedCornerShape(cornerMedium))
             .clickable { onClick() },
         elevation = CardDefaults.cardElevation(2.dp),

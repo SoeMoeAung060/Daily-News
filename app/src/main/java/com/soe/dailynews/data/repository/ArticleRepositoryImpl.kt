@@ -6,8 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.soe.dailynews.data.local.database.NewsDatabase
 import com.soe.dailynews.data.remote.api.NewsApi
-import com.soe.dailynews.data.repository.pagingSource.BreakingNewsPagingSource
-import com.soe.dailynews.data.repository.remoteMediator.RemoteMediator
+import com.soe.dailynews.data.repository.pagingSource.NewsPagingSource
 import com.soe.dailynews.domain.model.Article
 import com.soe.dailynews.domain.repository.ArticleRepository
 import com.soe.dailynews.util.PER_PAGE_SIZE
@@ -17,36 +16,61 @@ import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor (
     private val newsApi: NewsApi,
-    private val newsDatabase : NewsDatabase
+    private val newsDatabase: NewsDatabase
 ): ArticleRepository {
 
 
+    private val pagingSourceFactory = newsDatabase.articleDao()
+
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getBreakingNews(country: String): Flow<PagingData<Article>> {
-        val pagingSourceFactory = { newsDatabase.articleDao().getAllArticle() }
+    override suspend fun getNews(
+        sources: List<String>,
+    ): Flow<PagingData<Article>> {
+
         return Pager(
             config = PagingConfig(pageSize = PER_PAGE_SIZE),
-            pagingSourceFactory = pagingSourceFactory,
+            pagingSourceFactory = { pagingSourceFactory.getAllArticle() },
             remoteMediator = RemoteMediator(
-                country = country,
                 newsApi = newsApi,
-                newsDatabase = newsDatabase
+                newsDatabase = newsDatabase,
+                sources = sources.joinToString(",")
             )
         ).flow
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getEverythingNews(source: List<String>, country: String): Flow<PagingData<Article>> {
-        val pagingSourceFactory = { newsDatabase.articleDao().getAllArticle() }
+    override suspend fun getTopHeadline(sources: List<String>): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = PER_PAGE_SIZE),
-            pagingSourceFactory = pagingSourceFactory,
+            pagingSourceFactory = { pagingSourceFactory.getAllArticle() },
             remoteMediator = RemoteMediator(
-                country = country,
-                sources = source.joinToString { "," },
                 newsApi = newsApi,
-                newsDatabase = newsDatabase
+                newsDatabase = newsDatabase,
+                sources = sources.joinToString(",")
             )
         ).flow
     }
+
+    override suspend fun getSearchNews(search: String, sources: List<String>): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(pageSize = PER_PAGE_SIZE),
+            pagingSourceFactory = { NewsPagingSource(
+                newsApi = newsApi,
+                query = search,
+                sources = sources.joinToString(",")) }
+        ).flow
+    }
+
+    override suspend fun getCategoriesNews(category: String): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(pageSize = PER_PAGE_SIZE),
+            pagingSourceFactory = {
+                NewsPagingSource(
+                    newsApi = newsApi,
+                    query = category
+                )
+            }
+        ).flow
+    }
+
 }

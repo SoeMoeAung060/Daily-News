@@ -23,6 +23,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -38,10 +45,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.soe.dailynews.R
+import com.soe.dailynews.data.local.entity.BookmarkEntity
+import com.soe.dailynews.data.mapper.toBookmarkArticle
 import com.soe.dailynews.domain.model.Article
+import com.soe.dailynews.presentation.screens.bookmark.BookmarkViewmodel
 import com.soe.dailynews.presentation.ui.theme.DailyNewsTheme
 import com.soe.dailynews.util.cleanContent
 import com.soe.dailynews.util.formatDate
@@ -52,9 +63,20 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     article: Article,
     popUp: () -> Unit,
+    viewmodel : DetailScreenViewModel = hiltViewModel()
 ) {
 
     val context = LocalContext.current
+
+    val sideEffect by rememberUpdatedState(newValue = viewmodel.sideEffect)
+
+    LaunchedEffect(sideEffect) {
+        if(viewmodel.sideEffect != null){
+            Toast.makeText(context, "${viewmodel.sideEffect}", Toast.LENGTH_SHORT).show()
+            viewmodel.onEvent(DetailEvent.RemoveSideEffect)
+        }
+    }
+
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -74,14 +96,14 @@ fun DetailScreen(
                         } catch (e: Exception) {
                             Log.e("DetailScreen", "Error occurred while opening the URL: $e")
                         }
-//                        if (it.resolveActivity(context.packageManager) != null) {
-//                            context.startActivity(it)
-//                        } else {
-//                            Log.d("DetailScreen", "No activity found to handle intent: $it")
-//                        }
                     }
                 },
-                onBookMarkClick = {},
+                onBookMarkClick = {
+
+                    viewmodel.onEvent(DetailEvent.UpsertDeleteArticle(article.toBookmarkArticle()))
+
+                },
+
                 onShareClick = {
                     Intent(Intent.ACTION_SEND).also {
                         it.putExtra(Intent.EXTRA_TEXT, article.url)
@@ -100,7 +122,8 @@ fun DetailScreen(
             Box(
                 modifier = modifier
                     .fillMaxSize()
-                    .padding(innerPadding)
+                    .padding(
+                        top = innerPadding.calculateTopPadding())
 
             ) {
                 LazyColumn {

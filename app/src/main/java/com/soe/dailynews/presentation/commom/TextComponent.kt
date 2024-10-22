@@ -13,6 +13,22 @@ import com.soe.dailynews.R
 
 
 @Composable
+fun ScreenTitleTextLarge(
+    modifier: Modifier = Modifier,
+    textResId : Int
+) {
+
+    Text(
+        modifier = modifier,
+        text = stringResource(id = textResId),
+        color = MaterialTheme.colorScheme.primary,
+        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Normal),
+    )
+
+}
+
+
+@Composable
 fun ScreenTitleTextSmall(
     modifier: Modifier = Modifier,
     textResId: Int
@@ -21,9 +37,12 @@ fun ScreenTitleTextSmall(
         modifier = modifier,
         text = stringResource(id = textResId),
         color = MaterialTheme.colorScheme.tertiary,
-        style = MaterialTheme.typography.headlineMedium,
+        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.SemiBold),
     )
 }
+
+
+
 
 
 @Composable
@@ -32,7 +51,7 @@ fun CardTitleTextSmall(
     text: String
 ) {
     Text(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         text = text,
         maxLines = 3,
         color = MaterialTheme.colorScheme.onSurface,
@@ -49,7 +68,7 @@ fun DescriptionTextSmall(
     text: String
 ) {
     Text(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         text = text,
         color = MaterialTheme.colorScheme.onSurface,
         fontSize = MaterialTheme.typography.bodySmall.fontSize,
@@ -71,5 +90,38 @@ fun CardLabelTextSmall(
         maxLines = 1,
         color = color,
         fontSize = MaterialTheme.typography.labelSmall.fontSize,
+    )
+}
+
+
+@Composable
+fun ProfileName(
+    modifier: Modifier = Modifier,
+    text: String,
+    color : Color
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        maxLines = 1,
+        color = color,
+        fontSize = MaterialTheme.typography.titleLarge.fontSize,
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+    )
+}
+
+
+@Composable
+fun ProfileDescription(
+    modifier: Modifier = Modifier,
+    text: String,
+    color : Color
+) {
+    Text(
+        modifier = modifier,
+        text = text,
+        maxLines = 1,
+        color = color,
+        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
     )
 }

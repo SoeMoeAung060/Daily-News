@@ -38,14 +38,16 @@ fun LazyListScope.worldNewsHomeList(
 
     if (articles.itemCount > 0){
         items(count = articles.itemCount) { index ->
-            val articles = articles[index]!!
-            WorldNewsCard(
-                modifier = Modifier.padding(),
-                articles = articles,
-                onClick = {
-                    Log.d("TAG", "worldNewsHomeList: ${articles.title}")
-                    onClick(articles) }
-            )
+            val articles = articles[index]
+            if (articles != null) {
+                WorldNewsCard(
+                    modifier = Modifier.padding(),
+                    articles = articles,
+                    onClick = {
+                        Log.d("TAG", "worldNewsHomeList: ${articles.title}")
+                        onClick(articles) }
+                )
+            }
         }
     }
 }

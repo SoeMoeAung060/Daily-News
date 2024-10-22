@@ -56,6 +56,13 @@ object Dimensions {
     val homeCardNewsHeightSmall = 200.dp
 
 
+    val exploreCardWidth = 100.dp
+    val exploreCardHeight = 80.dp
+
+
+    val profilePictureSize = 68.dp
+
+
 
     val topBarHeight = 120.dp
     val bottomNavigationItemHeight = 40.dp

@@ -10,6 +10,9 @@ data class HomeScreenState(
     val article : Flow<PagingData<Article>>? = null,
     val breakingNews : List<Article> = emptyList(),
     val newsEverything : List<Article> = emptyList(),
-    val error : String? = null
+    val error : String? = null,
+
+    val searchQuery : String,
+    val isSearchBarVisible : Boolean = false,
 
     )

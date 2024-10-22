@@ -4,9 +4,34 @@
 
     <string name="breaking_news">Breaking News</string>
     <string name="no_news_available">No news available</string>
-    <string name="world_wide">World Wide</string>
+<!--    <string name="world_wide">World Wide</string>-->
     <string name="editor">Editor</string>
     <string name="read_more">Read more on browser</string>
+    <string name="home">Home</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="my_profile">My Profile</string>
 
+
+
+
+    <string name="server_unavailable">Server Unavailable</string>
+    <string name="internet_unavailable">Internet Unavailable</string>
+    <string name="rate_limit_exceeded">Api reached its limit. Please try again after 24 hours.</string>
+    <string name="unknown_error">Something Went Wrong</string>
+    <string name="no_save_news">You have no save news so far!</string>
+    <string name="explore">Explore</string>
+    <string name="Explore">Explore</string>
+    <string name="Michel_Alysa">Michel Alysa</string>
+    <string name="edit">edit profile detail</string>
+    <string name="arrow">Arrow</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="personal_info">Personal Info</string>
+    <string name="email">dailynews@gmail.com\n</string>
+    <string name="language">Language</string>
+    <string name="dark_mode">Display Mode</string>
+    <string name="log_out">Log Out</string>
+    <string name="my_account">My Account</string>
+    <string name="account_center">Account Center</string>
+    <string name="toggle">toogle</string>
 
 </resources>

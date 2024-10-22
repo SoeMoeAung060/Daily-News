@@ -21,8 +21,8 @@ class HomesScreenViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-    val getBreakingNews  = channelFlow {
-        repository.getBreakingNews("us")
+    val getEverythingNews  = channelFlow {
+        repository.getNews(SOURCES)
             .cachedIn(viewModelScope)
             .collectLatest {
                 val validArticle = it.filterArticle()
@@ -41,76 +41,27 @@ class HomesScreenViewModel @Inject constructor(
                 send(cacheData)
             }
     }
-//
-//    val getEverythingNews = channelFlow {
-//        repository.getEverythingNews(SOURCES, "us")
-//            .cachedIn(viewModelScope)
-//            .collectLatest {
-//                val validArticle = it.filterArticle()
-//                val cacheData = validArticle.map { article ->
-//                    Article(
-//                        source = article.source,
-//                        author = article.author,
-//                        url = article.url,
-//                        title = article.title,
-//                        description = article.description,
-//                        urlToImage = article.urlToImage,
-//                        publishedAt = article.publishedAt,
-//                        content = article.content
-//                    )
-//                }
-//                send(cacheData)
-//
-//            }
-//    }
 
 
-
-//    val getBreakingNews: Flow<PagingData<Article>> = channelFlow {
-//        repository.getBreakingNews("us")
-//            .cachedIn(viewModelScope)
-//            .collectLatest { articles ->
-//
-//                val validArticles = articles.filterArticle()
-//
-//                val cacheData = validArticles.map {
-//                    Article(
-//                        source = it.source,
-//                        author = it.author,
-//                        url = it.url,
-//                        title = it.title,
-//                        description = it.description,
-//                        urlToImage = it.urlToImage,
-//                        publishedAt = it.publishedAt,
-//                        content = it.content
-//                    )
-//                }
-//
-//                send(cacheData)
-//            }
-//    }
-//
-//    val getEverythingNews: Flow<PagingData<Article>> = channelFlow {
-//        repository.getEverythingNews(SOURCES)
-//            .cachedIn(viewModelScope)
-//            .collectLatest { articles ->
-//                val validArticles = articles.filterArticle()
-//
-//                val cacheData = validArticles.map {
-//                    Article(
-//                        source = it.source,
-//                        author = it.author,
-//                        url = it.url,
-//                        title = it.title,
-//                        description = it.description,
-//                        urlToImage = it.urlToImage,
-//                        publishedAt = it.publishedAt,
-//                        content = it.content
-//                    )
-//                }
-//
-//                send(cacheData)
-//            }
-//    }
+    val getTopHeadline  = channelFlow {
+        repository.getTopHeadline(SOURCES)
+            .cachedIn(viewModelScope)
+            .collectLatest {
+                val validArticle = it.filterArticle()
+                val cacheData = validArticle.map { article ->
+                    Article(
+                        source = article.source,
+                        author = article.author,
+                        url = article.url,
+                        title = article.title,
+                        description = article.description,
+                        urlToImage = article.urlToImage,
+                        publishedAt = article.publishedAt,
+                        content = article.content
+                    )
+                }
+                send(cacheData)
+            }
+    }
 
 }

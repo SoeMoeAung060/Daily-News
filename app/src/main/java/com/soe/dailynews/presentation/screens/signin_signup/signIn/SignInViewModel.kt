@@ -1,8 +1,11 @@
 package com.soe.dailynews.presentation.screens.signin_signup.signIn
 
-import com.soe.dailynews.navigations.navigation.BottomBarScreenRoute
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import com.soe.dailynews.navigations.navigation.ScreenRoute
 import com.soe.dailynews.di.authenticationModule.AccountService
+import com.soe.dailynews.presentation.screens.NewsAppViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val accountService: AccountService
-) : com.soe.dailynews.presentation.screens.NewsAppViewModel() {
+    private val accountService: AccountService,
+) : NewsAppViewModel() {
 
 
     private val _email = MutableStateFlow("")
@@ -31,7 +34,9 @@ class SignInViewModel @Inject constructor(
     }
 
 
+
     fun onClickSignIn(openAndPopUp: (String, String) -> Unit) {
+
         launchCatching {
             if (_email.value.isEmpty()) {
                 throw IllegalArgumentException("Email cannot be empty")
@@ -41,7 +46,7 @@ class SignInViewModel @Inject constructor(
             }
 
             accountService.signInWithEmailAndPassword(_email.value, _password.value)
-            openAndPopUp(BottomBarScreenRoute.Home.route, ScreenRoute.SignInScreen.route)
+            openAndPopUp(ScreenRoute.TopLevelScreenRoute.route, ScreenRoute.SignInScreen.route)
         }
     }
 
@@ -69,4 +74,6 @@ class SignInViewModel @Inject constructor(
         }
 
     }
+
+
 }

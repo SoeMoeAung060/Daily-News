@@ -1,80 +1,67 @@
 package com.soe.dailynews.presentation.screens.detail_screen
 
 import android.util.Log
-import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.kwabenaberko.newsapilib.NewsApiClient
-import com.kwabenaberko.newsapilib.models.Article
-import com.kwabenaberko.newsapilib.models.request.TopHeadlinesRequest
-import com.kwabenaberko.newsapilib.models.response.ArticleResponse
-import com.soe.dailynews.di.authenticationModule.AccountService
-import com.soe.dailynews.domain.repository.ArticleRepository
-import com.soe.dailynews.util.API_KEY
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.soe.dailynews.data.local.entity.BookmarkEntity
+import com.soe.dailynews.domain.model.Article
+import com.soe.dailynews.domain.usecase.ArticlesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-//
-//class DetailScreenViewModel @Inject constructor(
-//    private val accountService: AccountService,
-//    private val articleRepository: ArticleRepository
-//) : com.soe.dailynews.presentation.screens.NewsAppViewModel(){
 
 
-//
-//    private val _articleDetailState = MutableStateFlow(DetailScreenState())
-//    val articleDetailState = _articleDetailState.asStateFlow()
-//
-//
-//
-//    init {
-//
-//
-//    }
-//
-//
-//    fun getDetailNews() {
-//
-//        viewModelScope.launch {
-//
-//            _articleDetailState.update {
-//                it.copy(
-//                    isLoading = true
-//                )
-//            }
-//
-//
-//            articleRepository.getArticle()
-//                .onRight {
-//                    success ->
-//                    _articleDetailState.update {
-//                        it.copy(
-//                            article = success
-//                        )
-//                    }
-//                }
-//
-//                .onLeft {
-//                    error ->
-//                    _articleDetailState.update {
-//                        it.copy(
-//                            error = error.error.message
-//                        )
-//                    }
-//                }
-//
-//            _articleDetailState.update {
-//                it.copy(
-//                    isLoading = false
-//                )
-//            }
-//
-//
-//        }
-//    }
-//}
+@HiltViewModel
+class DetailScreenViewModel @Inject constructor(
+    private val articlesUseCase: ArticlesUseCase
+
+): ViewModel() {
+
+
+
+    var sideEffect by mutableStateOf<String?>(null)
+
+    fun onEvent(event: DetailEvent) {
+        when (event) {
+            is DetailEvent.UpsertDeleteArticle -> {
+                viewModelScope.launch {
+                    Log.d("DetailScreenViewModel", "Before onEvent URL: ${event.article.url}")
+                    val article = articlesUseCase.getBookmarkByUrl(event.article.url)
+                    Log.d("DetailScreenViewModel", "GetBookmarkArticles: $article")
+                    if (article == null){
+                        upsertBookmarkArticles(event.article)
+                    }else{
+                        deleteBookmarkArticles(event.article)
+                    }
+
+                }
+            }
+            is DetailEvent.RemoveSideEffect -> {
+                sideEffect
+            }
+        }
+    }
+
+
+    private suspend fun upsertBookmarkArticles(article: BookmarkEntity) {
+//        Log.d("UpsertArticle", "upsertArticle: $article")
+        articlesUseCase.upsertBookmarkArticle(article)
+        sideEffect = "Article Saved"
+    }
+
+    private suspend fun deleteBookmarkArticles(article: BookmarkEntity) {
+        articlesUseCase.deleteBookmarkArticle(article)
+        sideEffect = "Article Deleted"
+    }
+
+    private suspend fun getAllBookmarkArticles(){
+        articlesUseCase.getAllBookmarkArticles().collect{articles ->
+            Log.d("DetailScreenViewModel", "Current articles in DB: $articles")
+        }
+    }
+
+
+}

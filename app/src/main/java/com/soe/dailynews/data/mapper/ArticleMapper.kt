@@ -1,5 +1,6 @@
 package com.soe.dailynews.data.mapper
 
+import com.soe.dailynews.data.local.entity.BookmarkEntity
 import com.soe.dailynews.data.remote.dto.NewsResponseDTO
 import com.soe.dailynews.domain.model.Article
 import com.soe.dailynews.domain.model.Source
@@ -21,15 +22,30 @@ fun NewsResponseDTO.toArticle() : List<Article> {
 
 
 
-//fun ArticleEntity.toArticle() : Article{
-//    return Article(
-//        source = source,
-//        author = author,
-//        title = title,
-//        description = description,
-//        url = url,
-//        urlToImage = urlToImage,
-//        publishedAt = publishedAt,
-//        content = content
-//    )
-//}
+fun Article.toBookmarkArticle() : BookmarkEntity{
+    return BookmarkEntity(
+        source = this.source,
+        author = this.author,
+        title = this.title,
+        description = this.description,
+        url = this.url,
+        urlToImage = this.urlToImage,
+        publishedAt = this.publishedAt,
+        content = this.content,
+    )
+}
+
+
+
+fun BookmarkEntity.toArticle() : Article{
+    return Article(
+        source = this.source,
+        author = this.author,
+        title = this.title,
+        description = this.description,
+        url = this.url,
+        urlToImage = this.urlToImage,
+        publishedAt = this.publishedAt,
+        content = this.content,
+    )
+}

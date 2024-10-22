@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "e2baf9b1f9295990a01451aeffd43f1f",
+    "identityHash": "ce69c79e9f871cac7e77dda872dfbd7f",
     "entities": [
       {
-        "tableName": "article_entity",
+        "tableName": "Article",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `source` TEXT NOT NULL, `author` TEXT, `title` TEXT NOT NULL, `description` TEXT, `urlToImage` TEXT, `publishedAt` TEXT NOT NULL, `content` TEXT NOT NULL, PRIMARY KEY(`url`))",
         "fields": [
           {
@@ -67,8 +67,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "BreakingNewsRemoteKeyEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `next_page` INTEGER, `prev_page` INTEGER, PRIMARY KEY(`url`))",
+        "tableName": "RemoteKeyEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `prev_page` INTEGER, `next_page` INTEGER, PRIMARY KEY(`url`))",
         "fields": [
           {
             "fieldPath": "url",
@@ -77,46 +77,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "nextPage",
-            "columnName": "next_page",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
             "fieldPath": "prevPage",
             "columnName": "prev_page",
             "affinity": "INTEGER",
             "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "url"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "everything_news_remote_key",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url` TEXT NOT NULL, `next_page` INTEGER, `prev_page` INTEGER, PRIMARY KEY(`url`))",
-        "fields": [
-          {
-            "fieldPath": "url",
-            "columnName": "url",
-            "affinity": "TEXT",
-            "notNull": true
           },
           {
             "fieldPath": "nextPage",
             "columnName": "next_page",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "prevPage",
-            "columnName": "prev_page",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -134,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e2baf9b1f9295990a01451aeffd43f1f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ce69c79e9f871cac7e77dda872dfbd7f')"
     ]
   }
 }

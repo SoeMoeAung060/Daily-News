@@ -22,6 +22,8 @@ import coil.compose.AsyncImagePainter
 import coil.request.ImageRequest
 import com.soe.dailynews.R
 import com.soe.dailynews.presentation.ui.theme.Dimensions.cornerNormal
+import com.soe.dailynews.presentation.ui.theme.Dimensions.exploreCardHeight
+import com.soe.dailynews.presentation.ui.theme.Dimensions.exploreCardWidth
 import com.soe.dailynews.presentation.ui.theme.Dimensions.homeCardNewsHeight
 import com.soe.dailynews.presentation.ui.theme.Dimensions.homeCardNewsHeightSmall
 import com.soe.dailynews.presentation.ui.theme.Dimensions.homeCardNewsWidth
@@ -89,4 +91,24 @@ fun RectangleAsyncCard(
         imageUrl = imageUrl,
         context = context,
     )
+}
+
+
+@Composable
+fun ExploreArticleImage(
+    modifier: Modifier = Modifier,
+    imageUrl: String,
+    context: Context
+) {
+
+    ArticleAsyncImage(
+        modifier = modifier
+            .size(exploreCardWidth)
+            .height(exploreCardHeight)
+            .clip(MaterialTheme.shapes.medium)
+            .background(MaterialTheme.colorScheme.background),
+        imageUrl = imageUrl,
+        context = context,
+    )
+
 }
